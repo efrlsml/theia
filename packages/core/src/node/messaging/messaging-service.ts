@@ -54,3 +54,18 @@ export namespace MessagingService {
         configure(service: MessagingService): void;
     }
 }
+
+export interface WebSocketConnection extends IConnection {
+    channel: WebSocketChannel;
+}
+export namespace WebSocketConnection {
+    export function is(connection: IConnection): connection is WebSocketConnection {
+        return (connection as WebSocketConnection).channel instanceof WebSocketChannel;
+    }
+
+    export function create(connection: IConnection, channel: WebSocketChannel): WebSocketConnection {
+        const result = connection as WebSocketConnection;
+        result.channel = channel;
+        return result;
+    }
+}
